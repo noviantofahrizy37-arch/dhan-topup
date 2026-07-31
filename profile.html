@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Profil pengguna Dhan store - lihat detail akun dan riwayat transaksi.">
+  <title>Profil — Dhan store</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="navbar-placeholder"></div>
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Hidden file input for avatar upload -->
+  <input type="file" id="avatar-input" accept="image/*" style="display:none" onchange="handleAvatarUpload(event)">
+
+  <div class="page-wrapper">
+    <div class="container">
+      <div class="profile-layout">
+
+        <!-- LEFT: Profile Card -->
+        <div>
+          <div class="profile-card">
+            <div class="profile-avatar-wrap">
+              <img id="profile-avatar-img" src="" alt="Avatar" class="profile-avatar">
+              <div class="profile-avatar-edit" onclick="document.getElementById('avatar-input').click()" title="Ubah foto profil">✎</div>
+            </div>
+            <div class="profile-name" id="profile-username">-</div>
+            <div class="profile-email" id="profile-email">-</div>
+            <div class="profile-badge">⭐ Member Aktif</div>
+
+            <div class="profile-info-list">
+              <div class="profile-info-item">
+                <span class="profile-info-key">Username</span>
+                <span class="profile-info-val" id="info-username">-</span>
+              </div>
+              <div class="profile-info-item">
+                <span class="profile-info-key">Email</span>
+                <span class="profile-info-val" id="info-email" style="font-size:12px;">-</span>
+              </div>
+              <div class="profile-info-item">
+                <span class="profile-info-key">Total Transaksi</span>
+                <span class="profile-info-val" id="info-trx-count">0</span>
+              </div>
+              <div class="profile-info-item">
+                <span class="profile-info-key">Total Belanja</span>
+                <span class="profile-info-val" id="info-trx-total" style="color:var(--color-primary);">Rp 0</span>
+              </div>
+            </div>
+
+            <div style="margin-top: var(--space-lg); display:flex; flex-direction:column; gap: var(--space-sm);">
+              <a href="index.html" class="btn btn-gold-outline btn-full">🏠 Kembali ke Beranda</a>
+              <button class="btn btn-danger btn-full" onclick="handleLogout()">Keluar</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: Transactions -->
+        <div>
+          <div class="transaction-header">
+            🧾 Riwayat <span>Transaksi</span>
+          </div>
+
+          <div class="trx-table-wrap" id="trx-table-wrap">
+            <table class="trx-table">
+              <thead>
+                <tr>
+                  <th>ID Transaksi</th>
+                  <th>Game</th>
+                  <th>Produk</th>
+                  <th>ID Game</th>
+                  <th>Pembayaran</th>
+                  <th>Harga</th>
+                  <th>Status</th>
+                  <th>Tanggal</th>
+                </tr>
+              </thead>
+              <tbody id="trx-tbody">
+              </tbody>
+            </table>
+          </div>
+
+          <div id="trx-empty" class="trx-empty" style="display:none;">
+            <span class="trx-empty-icon">📋</span>
+            Belum ada transaksi. Mulai top-up game favoritmu!
+            <br><br>
+            <a href="index.html" class="btn btn-primary" style="display:inline-flex;">Lihat Game</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+  <script>
+    redirectIfNotLoggedIn();
+
+    function loadProfile() {
+      const session = Auth.getSession();
+      if (!session) return;
+
+      const user = Auth.getUser(session.userId);
+      const avatar = (user && user.avatar) ? user.avatar : DEFAULT_AVATAR;
+
+      document.getElementById('profile-avatar-img').src = avatar;
+      document.getElementById('profile-username').textContent = session.username;
+      document.getElementById('profile-email').textContent = session.email;
+      document.getElementById('info-username').textContent = session.username;
+      document.getElementById('info-email').textContent = session.email;
+
+      // Sync navbar avatar
+      const navAvatar = document.getElementById('nav-avatar');
+      if (navAvatar) navAvatar.src = avatar;
+
+      // Load transactions
+      const trxs = Transactions.getByUser(session.userId);
+      const tbody = document.getElementById('trx-tbody');
+      const empty = document.getElementById('trx-empty');
+      const tableWrap = document.getElementById('trx-table-wrap');
+
+      // Stats
+      const total = trxs.reduce((sum, t) => sum + t.price, 0);
+      document.getElementById('info-trx-count').textContent = trxs.length;
+      document.getElementById('info-trx-total').textContent = Transactions.formatCurrency(total);
+
+      if (trxs.length === 0) {
+        tableWrap.style.display = 'none';
+        empty.style.display = 'block';
+      } else {
+        tableWrap.style.display = 'block';
+        empty.style.display = 'none';
+        tbody.innerHTML = trxs.map(t => `
+          <tr>
+            <td><span style="color:var(--color-primary); font-size:11px; font-weight:700;">${t.id}</span></td>
+            <td style="font-weight:500;">${t.game}</td>
+            <td>${t.product}</td>
+            <td style="font-family:monospace; font-size:12px;">${t.gameId}</td>
+            <td>${t.paymentMethod}</td>
+            <td style="color:var(--color-primary); font-weight:600;">${Transactions.formatCurrency(t.price)}</td>
+            <td><span class="trx-status success">✓ Sukses</span></td>
+            <td style="color:var(--color-muted); font-size:12px;">${Transactions.formatDate(t.createdAt)}</td>
+          </tr>
+        `).join('');
+      }
+    }
+
+    function handleAvatarUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      if (file.size > 3 * 1024 * 1024) {
+        showToast('Ukuran file maksimal 3MB.', 'error');
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const base64 = e.target.result;
+        Auth.updateAvatar(base64);
+        document.getElementById('profile-avatar-img').src = base64;
+        const navAvatar = document.getElementById('nav-avatar');
+        if (navAvatar) navAvatar.src = base64;
+        showToast('Foto profil berhasil diperbarui! 📸', 'success');
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function handleLogout() {
+      if (confirm('Yakin ingin keluar dari akun?')) {
+        Auth.logout();
+      }
+    }
+
+    // Init
+    document.getElementById('navbar-placeholder').innerHTML = renderNavbar('profile.html');
+    loadProfile();
+  </script>
+</body>
+</html>

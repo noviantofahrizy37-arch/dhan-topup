@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Top-up Diamond Free Fire murah, cepat dan aman. Berbagai pilihan nominal diamond FF tersedia.">
+  <title>Top-Up Free Fire — Dhan store</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="navbar-placeholder"></div>
+  <div id="toast-container" class="toast-container"></div>
+
+  <div class="page-wrapper">
+
+    <!-- Game Hero Banner -->
+    <div class="game-hero" style="background: linear-gradient(135deg, #191716 0%, #1a1008 100%);">
+      <div class="container">
+        <div class="game-hero-inner">
+          <img src="assets/images/freefireicon.jpeg" alt="Free Fire" class="game-hero-icon">
+          <div class="game-hero-info">
+            <h1 class="game-hero-title">Free Fire</h1>
+            <p class="game-hero-desc">Top-up Diamond Free Fire instan, harga terbaik. Masukkan Player ID dan pilih nominal yang kamu inginkan.</p>
+            <div style="display:flex; gap: var(--space-sm); margin-top: var(--space-sm); flex-wrap: wrap;">
+              <span class="chip">⚡ Proses Instan</span>
+              <span class="chip">🔒 Aman</span>
+              <span class="chip">💎 Diamond</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Top-Up Layout -->
+    <div class="container">
+      <div class="topup-layout">
+
+        <!-- MAIN -->
+        <div class="topup-main">
+
+          <!-- Step 1: User ID -->
+          <div class="card">
+            <div class="step-label">
+              <span class="step-num">1</span>
+              <span class="step-text">Masukkan Player ID</span>
+            </div>
+            <div class="form-group" style="margin-bottom:0;">
+              <label class="form-label" for="game-user-id">Player ID</label>
+              <input type="text" id="game-user-id" class="form-input" placeholder="Contoh: 123456789" oninput="updateOrderSummary()">
+            </div>
+            <p style="font-size:12px; color:var(--color-muted); margin-top: var(--space-sm);">
+              💡 Player ID dapat ditemukan di menu profil Free Fire kamu.
+            </p>
+          </div>
+
+          <!-- Step 2: Nominal -->
+          <div class="card">
+            <div class="step-label">
+              <span class="step-num">2</span>
+              <span class="step-text">Pilih Nominal Diamond</span>
+            </div>
+            <div class="product-grid" id="product-grid"></div>
+          </div>
+
+          <!-- Step 3: Payment -->
+          <div class="card">
+            <div class="step-label">
+              <span class="step-num">3</span>
+              <span class="step-text">Pilih Metode Pembayaran</span>
+            </div>
+            <div class="payment-grid" id="payment-grid"></div>
+          </div>
+
+        </div>
+
+        <!-- SIDEBAR -->
+        <div class="topup-sidebar">
+          <div class="order-card">
+            <div class="order-title">📋 Ringkasan Pesanan</div>
+            <div class="order-row">
+              <span class="order-label">Game</span>
+              <span class="order-value" id="order-game">-</span>
+            </div>
+            <div class="order-row">
+              <span class="order-label">Player ID</span>
+              <span class="order-value" id="order-userid">-</span>
+            </div>
+            <div class="order-row">
+              <span class="order-label">Produk</span>
+              <span class="order-value" id="order-product">-</span>
+            </div>
+            <div class="order-row">
+              <span class="order-label">Pembayaran</span>
+              <span class="order-value" id="order-payment">-</span>
+            </div>
+            <div class="order-total-row">
+              <span class="order-total-label">Total</span>
+              <span class="order-total-price" id="order-price">-</span>
+            </div>
+            <button class="btn-buy" id="btn-buy" disabled onclick="handleBuy()">
+              🛒 Beli Sekarang
+            </button>
+            <p style="font-size:11px; color:var(--color-muted); text-align:center; margin-top:var(--space-sm);">
+              Dengan melanjutkan, kamu menyetujui syarat & ketentuan kami.
+            </p>
+          </div>
+          <div class="card" style="margin-top: var(--space-md);">
+            <p style="font-size:11px; color:var(--color-muted); margin-bottom: var(--space-sm); font-weight:600; text-transform:uppercase; letter-spacing:0.6px;">Metode Bayar</p>
+            <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+              <img src="assets/images/pymentdana.png" alt="Dana" style="height:20px; background:#fff; border-radius:4px; padding:2px 6px; object-fit:contain;">
+              <img src="assets/images/pymentgopay.png" alt="GoPay" style="height:20px; background:#fff; border-radius:4px; padding:2px 6px; object-fit:contain;">
+              <img src="assets/images/pymentovo.png" alt="OVO" style="height:20px; background:#fff; border-radius:4px; padding:2px 6px; object-fit:contain;">
+              <img src="assets/images/pymentqris.png" alt="QRIS" style="height:20px; background:#fff; border-radius:4px; padding:2px 6px; object-fit:contain;">
+              <img src="assets/images/pymentshopee.png" alt="Shopee" style="height:20px; background:#fff; border-radius:4px; padding:2px 6px; object-fit:contain;">
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-bottom">
+          <span>© 2025 Dhan store. All rights reserved.</span>
+          <a href="index.html" style="color:var(--color-primary);">← Kembali ke Beranda</a>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <script src="js/script.js"></script>
+  <script>
+    document.getElementById('navbar-placeholder').innerHTML = renderNavbar('freefire.html');
+
+    buildGamePage({
+      pageId: 'freefire.html',
+      gameName: 'Free Fire',
+      unit: 'Diamond',
+      products: [
+        { amount: 5,    price: 2000 },
+        { amount: 12,   price: 5000 },
+        { amount: 50,   price: 18000 },
+        { amount: 100,  price: 36000 },
+        { amount: 210,  price: 72000 },
+        { amount: 355,  price: 120000, bonus: 'Populer' },
+        { amount: 520,  price: 175000 },
+        { amount: 720,  price: 240000 },
+        { amount: 1060, price: 352000, bonus: 'Hemat' },
+        { amount: 1450, price: 480000 },
+        { amount: 2180, price: 721000, bonus: 'Terbaik' },
+        { amount: 5600, price: 1848000, bonus: 'Premium' },
+      ]
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Top-up Diamond Magic Chess (MCGG) murah, cepat dan aman.">
+  <title>Top-Up Magic Chess — Dhan store</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="navbar-placeholder"></div>
+  <div id="toast-container" class="toast-container"></div>
+
+  <div class="page-wrapper">
+    <div class="game-hero" style="background: linear-gradient(135deg, #191716 0%, #171018 100%);">
+      <div class="container">
+        <div class="game-hero-inner">
+          <img src="assets/images/mcggicon.jpeg" alt="Magic Chess" class="game-hero-icon">
+          <div class="game-hero-info">
+            <h1 class="game-hero-title">Magic Chess</h1>
+            <p class="game-hero-desc">Top-up Diamond Magic Chess instan, harga terbaik. Masukkan User ID dan Zone ID lalu pilih nominal Diamond.</p>
+            <div style="display:flex; gap: var(--space-sm); margin-top: var(--space-sm); flex-wrap: wrap;">
+              <span class="chip">⚡ Proses Instan</span>
+              <span class="chip">🔒 Aman</span>
+              <span class="chip">💎 Diamond</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="topup-layout">
+        <div class="topup-main">
+          <div class="card">
+            <div class="step-label"><span class="step-num">1</span><span class="step-text">Masukkan User ID & Zone ID</span></div>
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap: var(--space-sm);">
+              <div class="form-group" style="margin-bottom:0;">
+                <label class="form-label" for="game-user-id">User ID</label>
+                <input type="text" id="game-user-id" class="form-input" placeholder="Contoh: 12345678" oninput="updateOrderSummary()">
+              </div>
+              <div class="form-group" style="margin-bottom:0;">
+                <label class="form-label" for="game-zone-id">Zone ID</label>
+                <input type="text" id="game-zone-id" class="form-input" placeholder="Contoh: 1234">
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="step-label"><span class="step-num">2</span><span class="step-text">Pilih Nominal Diamond</span></div>
+            <div class="product-grid" id="product-grid"></div>
+          </div>
+          <div class="card">
+            <div class="step-label"><span class="step-num">3</span><span class="step-text">Pilih Metode Pembayaran</span></div>
+            <div class="payment-grid" id="payment-grid"></div>
+          </div>
+        </div>
+
+        <div class="topup-sidebar">
+          <div class="order-card">
+            <div class="order-title">📋 Ringkasan Pesanan</div>
+            <div class="order-row"><span class="order-label">Game</span><span class="order-value" id="order-game">-</span></div>
+            <div class="order-row"><span class="order-label">User ID</span><span class="order-value" id="order-userid">-</span></div>
+            <div class="order-row"><span class="order-label">Produk</span><span class="order-value" id="order-product">-</span></div>
+            <div class="order-row"><span class="order-label">Pembayaran</span><span class="order-value" id="order-payment">-</span></div>
+            <div class="order-total-row"><span class="order-total-label">Total</span><span class="order-total-price" id="order-price">-</span></div>
+            <button class="btn-buy" id="btn-buy" disabled onclick="handleBuy()">🛒 Beli Sekarang</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-bottom">
+          <span>© 2025 Dhan store. All rights reserved.</span>
+          <a href="index.html" style="color:var(--color-primary);">← Kembali ke Beranda</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="js/script.js"></script>
+  <script>
+    document.getElementById('navbar-placeholder').innerHTML = renderNavbar('mcgg.html');
+    buildGamePage({
+      pageId: 'mcgg.html',
+      gameName: 'Magic Chess',
+      unit: 'Diamond',
+      products: [
+        { amount: 53,   price: 15000 },
+        { amount: 154,  price: 42000, bonus: 'Populer' },
+        { amount: 256,  price: 70000, bonus: 'Hemat' },
+        { amount: 514,  price: 139000, bonus: 'Terbaik' }
+      ]
+    });
+  </script>
+</body>
+</html>

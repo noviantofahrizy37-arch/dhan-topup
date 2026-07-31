@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Top-up Cash Point Blank (PB) murah, cepat dan aman. Berbagai pilihan nominal Cash PB tersedia.">
+  <title>Top-Up Point Blank — Dhan store</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="navbar-placeholder"></div>
+  <div id="toast-container" class="toast-container"></div>
+
+  <div class="page-wrapper">
+    <div class="game-hero" style="background: linear-gradient(135deg, #191716 0%, #1a1005 100%);">
+      <div class="container">
+        <div class="game-hero-inner">
+          <img src="assets/images/pointblankicon.jpeg" alt="Point Blank" class="game-hero-icon">
+          <div class="game-hero-info">
+            <h1 class="game-hero-title">Point Blank</h1>
+            <p class="game-hero-desc">Top-up Cash Point Blank (PB Beyond Limits) instan, harga terbaik. Masukkan User ID / Username dan pilih nominal Cash.</p>
+            <div style="display:flex; gap: var(--space-sm); margin-top: var(--space-sm); flex-wrap: wrap;">
+              <span class="chip">⚡ Proses Instan</span>
+              <span class="chip">🔒 Aman</span>
+              <span class="chip">💵 Cash PB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="topup-layout">
+        <div class="topup-main">
+          <div class="card">
+            <div class="step-label"><span class="step-num">1</span><span class="step-text">Masukkan Zepetto ID / Username</span></div>
+            <div class="form-group" style="margin-bottom:0;">
+              <label class="form-label" for="game-user-id">Zepetto ID / Username</label>
+              <input type="text" id="game-user-id" class="form-input" placeholder="Contoh: trooper_pb12" oninput="updateOrderSummary()">
+            </div>
+          </div>
+          <div class="card">
+            <div class="step-label"><span class="step-num">2</span><span class="step-text">Pilih Nominal Cash PB</span></div>
+            <div class="product-grid" id="product-grid"></div>
+          </div>
+          <div class="card">
+            <div class="step-label"><span class="step-num">3</span><span class="step-text">Pilih Metode Pembayaran</span></div>
+            <div class="payment-grid" id="payment-grid"></div>
+          </div>
+        </div>
+
+        <div class="topup-sidebar">
+          <div class="order-card">
+            <div class="order-title">📋 Ringkasan Pesanan</div>
+            <div class="order-row"><span class="order-label">Game</span><span class="order-value" id="order-game">-</span></div>
+            <div class="order-row"><span class="order-label">Zepetto ID</span><span class="order-value" id="order-userid">-</span></div>
+            <div class="order-row"><span class="order-label">Produk</span><span class="order-value" id="order-product">-</span></div>
+            <div class="order-row"><span class="order-label">Pembayaran</span><span class="order-value" id="order-payment">-</span></div>
+            <div class="order-total-row"><span class="order-total-label">Total</span><span class="order-total-price" id="order-price">-</span></div>
+            <button class="btn-buy" id="btn-buy" disabled onclick="handleBuy()">🛒 Beli Sekarang</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-bottom">
+          <span>© 2025 Dhan store. All rights reserved.</span>
+          <a href="index.html" style="color:var(--color-primary);">← Kembali ke Beranda</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="js/script.js"></script>
+  <script>
+    document.getElementById('navbar-placeholder').innerHTML = renderNavbar('pointblank.html');
+    buildGamePage({
+      pageId: 'pointblank.html',
+      gameName: 'Point Blank',
+      unit: 'Cash',
+      products: [
+        { amount: 1200,  price: 11000 },
+        { amount: 2400,  price: 21000 },
+        { amount: 6000,  price: 51000, bonus: 'Populer' },
+        { amount: 12000, price: 101000, bonus: 'Hemat' },
+        { amount: 24000, price: 201000 },
+        { amount: 36000, price: 301000, bonus: 'Terbaik' }
+      ]
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Top-up Apex Coins Apex Legends murah, cepat dan aman. Berbagai pilihan nominal Apex Coins tersedia.">
+  <title>Top-Up Apex Legends — Dhan store</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="navbar-placeholder"></div>
+  <div id="toast-container" class="toast-container"></div>
+
+  <div class="page-wrapper">
+    <div class="game-hero" style="background: linear-gradient(135deg, #191716 0%, #200808 100%);">
+      <div class="container">
+        <div class="game-hero-inner">
+          <img src="assets/images/apexlegendicon.jpeg" alt="Apex Legends" class="game-hero-icon">
+          <div class="game-hero-info">
+            <h1 class="game-hero-title">Apex Legends</h1>
+            <p class="game-hero-desc">Top-up Apex Coins instan, harga terbaik. Masukkan EA Account ID / User ID dan pilih nominal Apex Coins.</p>
+            <div style="display:flex; gap: var(--space-sm); margin-top: var(--space-sm); flex-wrap: wrap;">
+              <span class="chip">⚡ Proses Instan</span>
+              <span class="chip">🔒 Aman</span>
+              <span class="chip">🪙 Apex Coins</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="topup-layout">
+        <div class="topup-main">
+          <div class="card">
+            <div class="step-label"><span class="step-num">1</span><span class="step-text">Masukkan EA Account ID</span></div>
+            <div class="form-group" style="margin-bottom:0;">
+              <label class="form-label" for="game-user-id">EA / Player ID</label>
+              <input type="text" id="game-user-id" class="form-input" placeholder="Contoh: ApexLegendPlayer" oninput="updateOrderSummary()">
+            </div>
+          </div>
+          <div class="card">
+            <div class="step-label"><span class="step-num">2</span><span class="step-text">Pilih Nominal Apex Coins</span></div>
+            <div class="product-grid" id="product-grid"></div>
+          </div>
+          <div class="card">
+            <div class="step-label"><span class="step-num">3</span><span class="step-text">Pilih Metode Pembayaran</span></div>
+            <div class="payment-grid" id="payment-grid"></div>
+          </div>
+        </div>
+
+        <div class="topup-sidebar">
+          <div class="order-card">
+            <div class="order-title">📋 Ringkasan Pesanan</div>
+            <div class="order-row"><span class="order-label">Game</span><span class="order-value" id="order-game">-</span></div>
+            <div class="order-row"><span class="order-label">Player ID</span><span class="order-value" id="order-userid">-</span></div>
+            <div class="order-row"><span class="order-label">Produk</span><span class="order-value" id="order-product">-</span></div>
+            <div class="order-row"><span class="order-label">Pembayaran</span><span class="order-value" id="order-payment">-</span></div>
+            <div class="order-total-row"><span class="order-total-label">Total</span><span class="order-total-price" id="order-price">-</span></div>
+            <button class="btn-buy" id="btn-buy" disabled onclick="handleBuy()">🛒 Beli Sekarang</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-bottom">
+          <span>© 2025 Dhan store. All rights reserved.</span>
+          <a href="index.html" style="color:var(--color-primary);">← Kembali ke Beranda</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="js/script.js"></script>
+  <script>
+    document.getElementById('navbar-placeholder').innerHTML = renderNavbar('apexlegends.html');
+    buildGamePage({
+      pageId: 'apexlegends.html',
+      gameName: 'Apex Legends',
+      unit: 'Apex Coins',
+      products: [
+        { amount: 1000,  price: 145000, bonus: 'Populer' },
+        { amount: 2150,  price: 285000, bonus: 'Bonus 150' },
+        { amount: 4350,  price: 570000, bonus: 'Bonus 350' },
+        { amount: 6700,  price: 850000, bonus: 'Bonus 700' },
+        { amount: 11500, price: 1420000, bonus: 'Terbaik' }
+      ]
+    });
+  </script>
+</body>
+</html>

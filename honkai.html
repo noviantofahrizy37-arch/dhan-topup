@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Top-up Oneiric Shard Honkai: Star Rail murah, cepat dan aman.">
+  <title>Top-Up Honkai: Star Rail — Dhan store</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="navbar-placeholder"></div>
+  <div id="toast-container" class="toast-container"></div>
+
+  <div class="page-wrapper">
+    <div class="game-hero" style="background: linear-gradient(135deg, #191716 0%, #151025 100%);">
+      <div class="container">
+        <div class="game-hero-inner">
+          <img src="assets/images/honkaiicon.jpeg" alt="Honkai: Star Rail" class="game-hero-icon">
+          <div class="game-hero-info">
+            <h1 class="game-hero-title">Honkai: Star Rail</h1>
+            <p class="game-hero-desc">Top-up Oneiric Shard Honkai Star Rail instan, harga terbaik. Masukkan User UID & Server lalu pilih nominal Shard.</p>
+            <div style="display:flex; gap: var(--space-sm); margin-top: var(--space-sm); flex-wrap: wrap;">
+              <span class="chip">⚡ Proses Instan</span>
+              <span class="chip">🔒 Aman</span>
+              <span class="chip">🔮 Oneiric Shard</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="topup-layout">
+        <div class="topup-main">
+          <div class="card">
+            <div class="step-label"><span class="step-num">1</span><span class="step-text">Masukkan UID & Server</span></div>
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap: var(--space-sm);">
+              <div class="form-group" style="margin-bottom:0;">
+                <label class="form-label" for="game-user-id">UID Star Rail</label>
+                <input type="text" id="game-user-id" class="form-input" placeholder="Contoh: 801234567" oninput="updateOrderSummary()">
+              </div>
+              <div class="form-group" style="margin-bottom:0;">
+                <label class="form-label" for="game-server">Server</label>
+                <select id="game-server" class="form-input">
+                  <option value="Asia">Asia</option>
+                  <option value="America">America</option>
+                  <option value="Europe">Europe</option>
+                  <option value="TW/HK/MO">TW/HK/MO</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="step-label"><span class="step-num">2</span><span class="step-text">Pilih Nominal Oneiric Shard</span></div>
+            <div class="product-grid" id="product-grid"></div>
+          </div>
+          <div class="card">
+            <div class="step-label"><span class="step-num">3</span><span class="step-text">Pilih Metode Pembayaran</span></div>
+            <div class="payment-grid" id="payment-grid"></div>
+          </div>
+        </div>
+
+        <div class="topup-sidebar">
+          <div class="order-card">
+            <div class="order-title">📋 Ringkasan Pesanan</div>
+            <div class="order-row"><span class="order-label">Game</span><span class="order-value" id="order-game">-</span></div>
+            <div class="order-row"><span class="order-label">UID</span><span class="order-value" id="order-userid">-</span></div>
+            <div class="order-row"><span class="order-label">Produk</span><span class="order-value" id="order-product">-</span></div>
+            <div class="order-row"><span class="order-label">Pembayaran</span><span class="order-value" id="order-payment">-</span></div>
+            <div class="order-total-row"><span class="order-total-label">Total</span><span class="order-total-price" id="order-price">-</span></div>
+            <button class="btn-buy" id="btn-buy" disabled onclick="handleBuy()">🛒 Beli Sekarang</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-bottom">
+          <span>© 2025 Dhan store. All rights reserved.</span>
+          <a href="index.html" style="color:var(--color-primary);">← Kembali ke Beranda</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="js/script.js"></script>
+  <script>
+    document.getElementById('navbar-placeholder').innerHTML = renderNavbar('honkai.html');
+    buildGamePage({
+      pageId: 'honkai.html',
+      gameName: 'Honkai: Star Rail',
+      unit: 'Oneiric Shard',
+      products: [
+        { amount: 60,   price: 16000 },
+        { amount: 300,  price: 79000, bonus: 'Bonus 30' },
+        { amount: 980,  price: 249000, bonus: 'Bonus 110' },
+        { amount: 1980, price: 479000, bonus: 'Bonus 260' },
+        { amount: 3280, price: 799000, bonus: 'Bonus 600' },
+        { amount: 6480, price: 1599000, bonus: 'Terbaik' }
+      ]
+    });
+  </script>
+</body>
+</html>

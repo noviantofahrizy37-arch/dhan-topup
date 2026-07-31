@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Daftar akun Dhan store gratis dan mulai top-up game favorit kamu.">
+  <title>Daftar — Dhan store</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="auth-page">
+  <div id="toast-container" class="toast-container"></div>
+  <div class="auth-card" style="max-width:460px;">
+    <div class="auth-logo">
+      <img src="assets/images/logos.jpeg" alt="Logo Dhan store">
+      <span class="auth-logo-name">Dhan store</span>
+    </div>
+    <h1 class="auth-title">Buat Akun Baru</h1>
+    <p class="auth-subtitle">Daftar gratis dan mulai top-up game favoritmu</p>
+    <div id="alert-box" style="display:none"></div>
+    <form id="register-form" onsubmit="handleRegister(event)">
+      <div class="form-group">
+        <label class="form-label" for="username">Username</label>
+        <input type="text" id="username" name="username" class="form-input" placeholder="Minimal 3 karakter" required autocomplete="username" minlength="3">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="email">Email</label>
+        <input type="email" id="email" name="email" class="form-input" placeholder="contoh@email.com" required autocomplete="email">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="password">Password</label>
+        <input type="password" id="password" name="password" class="form-input" placeholder="Minimal 6 karakter" required autocomplete="new-password" minlength="6">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="confirm-password">Konfirmasi Password</label>
+        <input type="password" id="confirm-password" name="confirm-password" class="form-input" placeholder="Ulangi password" required autocomplete="new-password">
+      </div>
+      <button type="submit" id="btn-register" class="btn btn-primary btn-full" style="margin-top:8px;">Daftar Sekarang</button>
+    </form>
+    <div class="auth-footer">Sudah punya akun? <a href="login.html">Masuk di sini</a></div>
+  </div>
+  <script src="js/script.js"></script>
+  <script>
+    redirectIfLoggedIn();
+    function handleRegister(e) {
+      e.preventDefault();
+      const btn = document.getElementById('btn-register');
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner"></span> Mendaftarkan...';
+      const username = document.getElementById('username').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const confirm = document.getElementById('confirm-password').value;
+      const alertBox = document.getElementById('alert-box');
+      if (password !== confirm) {
+        alertBox.style.display = 'block';
+        alertBox.className = 'alert alert-error';
+        alertBox.innerHTML = '✕ Password dan konfirmasi password tidak cocok.';
+        btn.disabled = false;
+        btn.innerHTML = 'Daftar Sekarang';
+        return;
+      }
+      setTimeout(() => {
+        const result = Auth.register({ username, email, password });
+        if (result.ok) {
+          alertBox.style.display = 'block';
+          alertBox.className = 'alert alert-success';
+          alertBox.innerHTML = '✓ ' + result.message + ' Mengalihkan ke halaman login...';
+          setTimeout(() => window.location.href = 'login.html', 1500);
+        } else {
+          alertBox.style.display = 'block';
+          alertBox.className = 'alert alert-error';
+          alertBox.innerHTML = '✕ ' + result.message;
+          btn.disabled = false;
+          btn.innerHTML = 'Daftar Sekarang';
+        }
+      }, 600);
+    }
+  </script>
+</body>
+</html>

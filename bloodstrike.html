@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Top-up BC Blood Strike murah, cepat dan aman. Berbagai pilihan nominal Blood Strike tersedia.">
+  <title>Top-Up Blood Strike — Dhan store</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="navbar-placeholder"></div>
+  <div id="toast-container" class="toast-container"></div>
+
+  <div class="page-wrapper">
+
+    <div class="game-hero" style="background: linear-gradient(135deg, #191716 0%, #1a0808 100%);">
+      <div class="container">
+        <div class="game-hero-inner">
+          <img src="assets/images/bloodstrikeicon.jpeg" alt="Blood Strike" class="game-hero-icon">
+          <div class="game-hero-info">
+            <h1 class="game-hero-title">Blood Strike</h1>
+            <p class="game-hero-desc">Top-up BC (Blood Coins) Blood Strike instan, harga terbaik. Masukkan Player ID dan pilih nominal yang kamu inginkan.</p>
+            <div style="display:flex; gap: var(--space-sm); margin-top: var(--space-sm); flex-wrap: wrap;">
+              <span class="chip">⚡ Proses Instan</span>
+              <span class="chip">🔒 Aman</span>
+              <span class="chip">🔴 Blood Coins</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="topup-layout">
+
+        <div class="topup-main">
+          <div class="card">
+            <div class="step-label">
+              <span class="step-num">1</span>
+              <span class="step-text">Masukkan Player ID</span>
+            </div>
+            <div class="form-group" style="margin-bottom:0;">
+              <label class="form-label" for="game-user-id">Player ID</label>
+              <input type="text" id="game-user-id" class="form-input" placeholder="Contoh: 987654321" oninput="updateOrderSummary()">
+            </div>
+            <p style="font-size:12px; color:var(--color-muted); margin-top: var(--space-sm);">
+              💡 Player ID dapat ditemukan di menu profil Blood Strike kamu.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="step-label">
+              <span class="step-num">2</span>
+              <span class="step-text">Pilih Nominal Blood Coins</span>
+            </div>
+            <div class="product-grid" id="product-grid"></div>
+          </div>
+
+          <div class="card">
+            <div class="step-label">
+              <span class="step-num">3</span>
+              <span class="step-text">Pilih Metode Pembayaran</span>
+            </div>
+            <div class="payment-grid" id="payment-grid"></div>
+          </div>
+        </div>
+
+        <div class="topup-sidebar">
+          <div class="order-card">
+            <div class="order-title">📋 Ringkasan Pesanan</div>
+            <div class="order-row"><span class="order-label">Game</span><span class="order-value" id="order-game">-</span></div>
+            <div class="order-row"><span class="order-label">Player ID</span><span class="order-value" id="order-userid">-</span></div>
+            <div class="order-row"><span class="order-label">Produk</span><span class="order-value" id="order-product">-</span></div>
+            <div class="order-row"><span class="order-label">Pembayaran</span><span class="order-value" id="order-payment">-</span></div>
+            <div class="order-total-row">
+              <span class="order-total-label">Total</span>
+              <span class="order-total-price" id="order-price">-</span>
+            </div>
+            <button class="btn-buy" id="btn-buy" disabled onclick="handleBuy()">🛒 Beli Sekarang</button>
+          </div>
+          <div class="card" style="margin-top: var(--space-md);">
+            <p style="font-size:11px; color:var(--color-muted); margin-bottom: var(--space-sm); font-weight:600; text-transform:uppercase; letter-spacing:0.6px;">Metode Bayar</p>
+            <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+              <img src="assets/images/pymentdana.png" alt="Dana" style="height:20px; background:#fff; border-radius:4px; padding:2px 6px; object-fit:contain;">
+              <img src="assets/images/pymentgopay.png" alt="GoPay" style="height:20px; background:#fff; border-radius:4px; padding:2px 6px; object-fit:contain;">
+              <img src="assets/images/pymentovo.png" alt="OVO" style="height:20px; background:#fff; border-radius:4px; padding:2px 6px; object-fit:contain;">
+              <img src="assets/images/pymentqris.png" alt="QRIS" style="height:20px; background:#fff; border-radius:4px; padding:2px 6px; object-fit:contain;">
+              <img src="assets/images/pymentshopee.png" alt="Shopee" style="height:20px; background:#fff; border-radius:4px; padding:2px 6px; object-fit:contain;">
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-bottom">
+          <span>© 2025 Dhan store. All rights reserved.</span>
+          <a href="index.html" style="color:var(--color-primary);">← Kembali ke Beranda</a>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <script src="js/script.js"></script>
+  <script>
+    document.getElementById('navbar-placeholder').innerHTML = renderNavbar('bloodstrike.html');
+
+    buildGamePage({
+      pageId: 'bloodstrike.html',
+      gameName: 'Blood Strike',
+      unit: 'BC',
+      products: [
+        { amount: 50,   price: 12000 },
+        { amount: 100,  price: 23000 },
+        { amount: 300,  price: 68000 },
+        { amount: 520,  price: 117000, bonus: 'Populer' },
+        { amount: 1090, price: 244000, bonus: 'Hemat' },
+        { amount: 2240, price: 499000, bonus: 'Terbaik' },
+      ]
+    });
+  </script>
+</body>
+</html>
